@@ -1,0 +1,17 @@
+{
+  "name": "yattee-auto-manifest",
+  "version": "1.0.0",
+  "description": "Automatically fetches a list of Invidious and Piped instances, then parses them into the acceptable yattee manifest.json format",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cutesything",
+  "license": "ISC",
+  "dependencies": {
+    "country-emoji": "^1.5.6",
+    "node-fetch": "^3.3.1"
+  }
+}

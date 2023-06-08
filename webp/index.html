@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Yattee Auto-Manifest Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      h1 {
+        font-size: 24px;
+        margin: 24px 0;
+      }
+      p {
+        margin: 12px 0;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-bottom: 24px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3e8e41;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        margin: 6px 0;
+      }
+      a {
+        color: #0645AD;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .buttons-container {
+        display: flex;
+        justify-content: center;
+      }
+      .copy-button {
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>You can copy these links to the locations manifest URL in Yattee.</h1>
+
+    <div class="buttons-container">
+      <button id="piped-button">Piped Instances</button>
+      <button id="invidious-button">Invidious Instances</button>
+      <button id="piped-invidious-button">Piped &amp; Invidious Instances Merged (not recommended)</button>
+    </div>
+
+    <button id="reload-button">Reload Manifests</button>
+    <div id="message"></div>
+
+    <script>
+      // Function to fetch the updated data and display it in the div
+      const reloadButton = document.querySelector("#reload-button");
+      const messageDiv = document.querySelector("#message");
+    
+      reloadButton.addEventListener("click", async () => {
+        const response = await fetch("/reload");
+        const message = await response.text();
+        messageDiv.textContent = message;
+      });
+    
+      // Function to copy the URL to the clipboard
+      const copyToClipboard = (url) => {
+        const el = document.createElement('textarea');
+        el.value = url;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert("Copied to clipboard!");
+      }
+    
+      // Function to handle button clicks
+      const handleButtonClick = (url) => {
+        copyToClipboard(url);
+      }
+    
+      // Add click event listeners to the buttons
+      const pipedButton = document.querySelector("#piped-button");
+      pipedButton.addEventListener("click", () => handleButtonClick(window.location.host + "/piped-instances.json"));
+    
+      const invidiousButton = document.querySelector("#invidious-button");
+      invidiousButton.addEventListener("click", () => handleButtonClick(window.location.host + "/invidious-instances.json"));
+    
+      const pipedInvidiousButton = document.querySelector("#piped-invidious-button");
+      pipedInvidiousButton.addEventListener("click", () => handleButtonClick(window.location.host + "/piped-invidious-instances.json"));
+    </script>
+  </body>
+</html>    
