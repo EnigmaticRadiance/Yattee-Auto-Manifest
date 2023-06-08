@@ -1,0 +1,1 @@
+# Yattee-Auto-Manifest
